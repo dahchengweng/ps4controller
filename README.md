@@ -57,8 +57,6 @@ Designed for projects that require clean architecture, event-driven input handli
 main.ino
 
 
----
-
 ## Supported Buttons
 
 PS4 Button → Enum Name
