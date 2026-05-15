@@ -139,38 +139,37 @@ void onStickMove(void (*callback)(int lx, int ly, int rx, int ry));
 ```mermaid
 flowchart TD
 
-    subgraph PS4_Controller["🎮 PS4 Controller"]
-        A1[按鍵輸入<br>Cross / Circle / L1 / R2 ...]
-        A2[搖桿輸入<br>LX / LY / RX / RY]
-        A3[系統按鍵<br>Share / Options / PS]
+    subgraph Controller["Game Controller"]
+        A1[Button Input]
+        A2[Stick Input]
+        A3[System Buttons]
     end
 
-    subgraph Bluepad32["🔵 Bluepad32 Library"]
-        B1[接收藍牙資料]
-        B2[解析按鍵 bitmask]
-        B3[解析搖桿軸值]
-        B4[呼叫 onConnected / onDisconnected]
-        B5[呼叫 update() 傳回新資料]
+    subgraph Bluepad32["Bluepad32 Library"]
+        B1[Receive Bluetooth Data]
+        B2[Parse Button Bitmask]
+        B3[Parse Stick Axes]
+        B4[onConnected / onDisconnected]
+        B5[update() returns new data]
     end
 
-    subgraph Manager["🧩 PS4ControllerManager"]
-        C1[onConnected()<br>儲存 ControllerPtr]
+    subgraph Manager["Controller Manager"]
+        C1[Store ControllerPtr]
         C2[update()]
         C3[processButtons()]
         C4[processSticks()]
-        C5[比對按鍵變化<br>Pressed / Released / Held]
-        C6[觸發 button callback]
-        C7[觸發 stick callback]
+        C5[Detect Press/Release/Hold]
+        C6[Trigger Button Callback]
+        C7[Trigger Stick Callback]
     end
 
-    subgraph UserCode["🟢 User Code (main.ino)"]
-        D1[註冊 onButtonEvent()]
-        D2[註冊 onStickMove()]
-        D3[onPS4Button()]
-        D4[onPS4Stick()]
+    subgraph UserCode["User Code"]
+        D1[Register Button Callback]
+        D2[Register Stick Callback]
+        D3[onButtonEvent()]
+        D4[onStickEvent()]
     end
 
-    %% Connections
     A1 --> B1
     A2 --> B1
     A3 --> B1
