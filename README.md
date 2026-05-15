@@ -138,3 +138,14 @@ flowchart TD
 
     D1 --> C6
     D2 --> C7
+--- 
+
+#Note
+Notes
+This library is designed for Bluepad32 Arduino 4.x.
+
+Button bitmask definitions differ between versions; this implementation uses the correct mapping for 4.x.
+
+Only one controller is supported in this version.
+
+If your controller fails to reconnect, call begin(true) to clear Bluetooth keys.
