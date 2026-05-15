@@ -137,37 +137,38 @@ void onStickMove(void (*callback)(int lx, int ly, int rx, int ry));
 ## Controller → Bluepad32 → Manager → Callback 流程圖
 
 ```mermaid
+
 flowchart TD
 
     subgraph Controller["Game Controller"]
         A1[Button Input]
         A2[Stick Input]
-        A3[System Buttons]
+        A3[System Input]
     end
 
-    subgraph Bluepad32["Bluepad32 Library"]
-        B1[Receive Bluetooth Data]
-        B2[Parse Button Bitmask]
-        B3[Parse Stick Axes]
-        B4[onConnected / onDisconnected]
-        B5[update() returns new data]
+    subgraph Bluepad32["Bluepad32 Core"]
+        B1[Receive Data]
+        B2[Parse Buttons]
+        B3[Parse Sticks]
+        B4[Connection Events]
+        B5[Data Update]
     end
 
     subgraph Manager["Controller Manager"]
-        C1[Store ControllerPtr]
-        C2[update()]
-        C3[processButtons()]
-        C4[processSticks()]
-        C5[Detect Press/Release/Hold]
-        C6[Trigger Button Callback]
-        C7[Trigger Stick Callback]
+        C1[Store Pointer]
+        C2[Manager Update]
+        C3[Handle Buttons]
+        C4[Handle Sticks]
+        C5[Detect Events]
+        C6[Call Button Callback]
+        C7[Call Stick Callback]
     end
 
-    subgraph UserCode["User Code"]
+    subgraph UserCode["User Application"]
         D1[Register Button Callback]
         D2[Register Stick Callback]
-        D3[onButtonEvent()]
-        D4[onStickEvent()]
+        D3[User Button Handler]
+        D4[User Stick Handler]
     end
 
     A1 --> B1
@@ -195,7 +196,6 @@ flowchart TD
 
     D1 --> C6
     D2 --> C7
-
 
 
 
